@@ -72,7 +72,7 @@ const MainChinese: React.FunctionComponent = () => {
   const { approveTokenAIX, depositAIX, withDrawAIX, 
     checkTotalReward, checkBalanceAIX, checkBalanceAIXT, approveToken, 
     buyAIX, sellAIX, checkUserInfo, checkInvitorReward, checkViewStaticReward, checkViewTeamReward,
-    checkTotalDeposit } = useContracts();
+    checkTotalDeposit, checkAllowanceAIX } = useContracts();
 
   const [open, setOpen] = useState(false);
   const [claimableReward, setReward] = useState('0');
@@ -94,6 +94,8 @@ const MainChinese: React.FunctionComponent = () => {
   const [aixSellAmount, setSellAIXAmount] = useState('0');
   const [invitorAddress, setInvitorAddress] = useState('');
   const [userInfo, setUserInfo] = useState([]);
+  const [checkDepositAIXAllowance, setCheckDepositAIXAllowance] = useState(false);
+
 
   useEffect(() => {
     async function process() {
@@ -118,6 +120,7 @@ const MainChinese: React.FunctionComponent = () => {
       const aixtBal = await checkBalanceAIXT();
       const _totalDeposit = await checkTotalDeposit()
       const userInfoDetails: any = await checkUserInfo()
+      const _checkDepositAIXAllowance: any = await checkAllowanceAIX(smart_aix_contract.address)
       console.log('userInfoDetails: ', userInfoDetails, parseFloat(userInfoDetails[0])/1e18)
 
       setReward(reward)
@@ -127,7 +130,8 @@ const MainChinese: React.FunctionComponent = () => {
       setAIXBalance(aixBal)
       setAIXTBalance(aixtBal)
       setTotalDeposit(_totalDeposit)
-      setUserInfo(userInfoDetails)
+      setUserInfo(userInfoDetails) 
+      setCheckDepositAIXAllowance(_checkDepositAIXAllowance)
       if(userInfoDetails[2] != '0x0000000000000000000000000000000000000000') {
         setInvitorAddress(userInfoDetails[2]);
       }
@@ -229,7 +233,10 @@ const MainChinese: React.FunctionComponent = () => {
                     // <input disabled style={{width: "100%", height: '40px'}} onChange={handleInvitorAddress} placeholder="Invitor Address" value={userInfo[2]}></input>
                   }
                 </Grid>
-                <Grid item xs={12} style={{marginTop:"60px"}}>
+                {checkDepositAIXAllowance ? 
+                    ''
+                    : 
+                  (<Grid item xs={12} style={{marginTop:"60px"}}>
                   <div
                     className="approve-token-button" style={{background:"linear-gradient(to right, #4F5799 0%,#687EC2 100%)",padding:"10px 0px",borderRadius:"30px"}}
                     onClick={() => approveTokenAIX(smart_aix_contract.address)}
@@ -238,7 +245,7 @@ const MainChinese: React.FunctionComponent = () => {
                       <Typography variant="button" display="block" gutterBottom>Approve AIX</Typography>
                     </ThemeProvider> 
                   </div>
-                </Grid>
+                </Grid>)}
                 <Grid item xs={12}>
                   <div
                     className="approve-token-button" style={{backgroundColor:"white", color:"black", borderRadius:"30px",padding:"10px 0px",border:"1px solid var(--pastel-blue2)"}}

@@ -70,7 +70,7 @@ const MainChinese: React.FunctionComponent = () => {
   const { approveTokenAIX, depositAIX, withDrawAIX, 
     checkTotalReward, checkBalanceAIX, checkBalanceAIXT, approveToken, 
     buyAIX, sellAIX, checkUserInfo, checkInvitorReward, checkViewStaticReward, checkViewTeamReward,
-    checkTotalDeposit } = useContracts();
+    checkTotalDeposit, checkAllowanceUSDT, checkAllowanceAIX } = useContracts();
 
   const [open, setOpen] = useState(false);
   const [claimableReward, setReward] = useState('0');
@@ -91,6 +91,8 @@ const MainChinese: React.FunctionComponent = () => {
   const [aixBuyAmount, setBuyAIXAmount] = useState('0');
   const [aixSellAmount, setSellAIXAmount] = useState('0');
   const [invitorAddress, setInvitorAddress] = useState('');
+  const [checkBuyUSDTAllowance, setCheckBuyUSDTAllowance] = useState(false);
+  const [checkSellAIXAllowance, setCheckSellAIXAllowance] = useState(false);
   const [userInfo, setUserInfo] = useState([]);
 
   useEffect(() => {
@@ -116,6 +118,8 @@ const MainChinese: React.FunctionComponent = () => {
       const aixtBal = await checkBalanceAIXT();
       const _totalDeposit = await checkTotalDeposit()
       const userInfoDetails: any = await checkUserInfo()
+      const _checkBuyUSDTAllowance: any = await checkAllowanceUSDT()
+      const _checkSellAIXAllowance: any = await checkAllowanceAIX(buy_aix_contract.address)
       console.log('userInfoDetails: ', userInfoDetails, parseFloat(userInfoDetails[0])/1e18)
 
       setReward(reward)
@@ -126,6 +130,8 @@ const MainChinese: React.FunctionComponent = () => {
       setAIXTBalance(aixtBal)
       setTotalDeposit(_totalDeposit)
       setUserInfo(userInfoDetails)
+      setCheckBuyUSDTAllowance(_checkBuyUSDTAllowance)
+      setCheckSellAIXAllowance(_checkSellAIXAllowance)
       if(userInfoDetails[2] != '0x0000000000000000000000000000000000000000') {
         setInvitorAddress(userInfoDetails[2]);
       }
@@ -214,17 +220,23 @@ const MainChinese: React.FunctionComponent = () => {
                     </ThemeProvider> 
                   </div>
                 </Grid>
-                <Grid item xs={12}>
-                  <div
-                    className="approve-token-button"  
-                    style={{backgroundColor:"white", color:"black", borderRadius:"30px",padding:"10px 0px",border:"1px solid var(--pastel-blue2)"}}
-                    onClick={() => approveToken()}
-                  >
-                    <ThemeProvider theme={theme}>
-                      <Typography variant="button" display="block" gutterBottom>Approve USDT</Typography>
-                    </ThemeProvider> 
-                  </div>
-                </Grid>
+                {checkBuyUSDTAllowance ? 
+                    ''
+                    : 
+                  (
+                     <Grid item xs={12}>
+                    <div
+                      className="approve-token-button"  
+                      style={{backgroundColor:"white", color:"black", borderRadius:"30px",padding:"10px 0px",border:"1px solid var(--pastel-blue2)"}}
+                      onClick={() => approveToken()}
+                    >
+                      <ThemeProvider theme={theme}>
+                        <Typography variant="button" display="block" gutterBottom>Approve USDT</Typography>
+                      </ThemeProvider> 
+                      
+                    </div>
+                  </Grid>
+                )}
                  <Grid item xs={12} style={{marginTop:"60px"}}>
                   <TextField 
                     style={{width: "100%", height: '40px'}} 
@@ -237,17 +249,22 @@ const MainChinese: React.FunctionComponent = () => {
                   {/* <input style={{width: "100%", height: '40px'}} onChange={handleBuyAIXAmount} placeholder="Add Buy AIX amount"></input> */}
                 </Grid>
                 
-                <Grid item xs={12} style={{marginTop:"20px"}}>
-                  <div
-                    className="approve-token-button"
-                    style={{background:"linear-gradient(to right, #4F5799 0%,#687EC2 100%)",padding:"10px 0px",borderRadius:"30px"}}
-                    onClick={() => approveTokenAIX(buy_aix_contract.address)}
-                  >
-                    <ThemeProvider theme={theme}>
-                      <Typography variant="button" display="block" gutterBottom>APPROVE AIX</Typography>
-                    </ThemeProvider> 
-                  </div>
-                </Grid>
+                {checkSellAIXAllowance ? 
+                    ''
+                    : 
+                  (
+                    <Grid item xs={12} style={{marginTop:"20px"}}>
+                    <div
+                      className="approve-token-button"
+                      style={{background:"linear-gradient(to right, #4F5799 0%,#687EC2 100%)",padding:"10px 0px",borderRadius:"30px"}}
+                      onClick={() => approveTokenAIX(buy_aix_contract.address)}
+                    >
+                      <ThemeProvider theme={theme}>
+                        <Typography variant="button" display="block" gutterBottom>APPROVE AIX</Typography>
+                      </ThemeProvider> 
+                    </div>
+                  </Grid>
+                )}
                 <Grid item xs={12}>
                   <div
                     className="approve-token-button"

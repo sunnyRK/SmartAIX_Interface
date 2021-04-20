@@ -72,7 +72,7 @@ const MainChinese: React.FunctionComponent = () => {
   const { approveTokenAIX, depositAIX, withDrawAIX, 
     checkTotalReward, checkBalanceAIX, checkBalanceAIXT, approveToken, 
     buyAIX, sellAIX, checkUserInfo, checkInvitorReward, checkViewStaticReward, checkViewTeamReward,
-    checkTotalDeposit } = useContracts();
+    checkTotalDeposit, checkAllowanceAIX } = useContracts();
 
   const [open, setOpen] = useState(false);
   const [claimableReward, setReward] = useState('0');
@@ -94,6 +94,7 @@ const MainChinese: React.FunctionComponent = () => {
   const [aixSellAmount, setSellAIXAmount] = useState('0');
   const [invitorAddress, setInvitorAddress] = useState('');
   const [userInfo, setUserInfo] = useState([]);
+  const [checkDepositAIXAllowance, setCheckDepositAIXAllowance] = useState(false);
 
   useEffect(() => {
     async function process() {
@@ -118,6 +119,7 @@ const MainChinese: React.FunctionComponent = () => {
       const aixtBal = await checkBalanceAIXT();
       const _totalDeposit = await checkTotalDeposit()
       const userInfoDetails: any = await checkUserInfo()
+      const _checkDepositAIXAllowance: any = await checkAllowanceAIX(smart_aix_contract.address)
       console.log('userInfoDetails: ', userInfoDetails, parseFloat(userInfoDetails[0])/1e18)
 
       setReward(reward)
@@ -128,6 +130,7 @@ const MainChinese: React.FunctionComponent = () => {
       setAIXTBalance(aixtBal)
       setTotalDeposit(_totalDeposit)
       setUserInfo(userInfoDetails)
+      setCheckDepositAIXAllowance(_checkDepositAIXAllowance)
       if(userInfoDetails[2] != '0x0000000000000000000000000000000000000000') {
         setInvitorAddress(userInfoDetails[2]);
       }
@@ -239,16 +242,21 @@ const MainChinese: React.FunctionComponent = () => {
                     </ThemeProvider> 
                   </div>
                 </Grid>
-                <Grid item xs={12}>
-                  <div
-                    className="approve-token-button" style={{backgroundColor:"white", color:"black", borderRadius:"30px",padding:"10px 0px",border:"1px solid var(--pastel-blue2)"}}
-                    onClick={() => depositAIX(aixDepositAmount, invitorAddress)}
-                  >
-                    <ThemeProvider theme={theme}>
-                      <Typography variant="button" display="block" gutterBottom>質押AIX</Typography>
-                    </ThemeProvider> 
-                  </div>
-                </Grid>
+                {checkDepositAIXAllowance ? 
+                    ''
+                    : 
+                  (
+                  <Grid item xs={12}>
+                    <div
+                      className="approve-token-button" style={{backgroundColor:"white", color:"black", borderRadius:"30px",padding:"10px 0px",border:"1px solid var(--pastel-blue2)"}}
+                      onClick={() => depositAIX(aixDepositAmount, invitorAddress)}
+                    >
+                      <ThemeProvider theme={theme}>
+                        <Typography variant="button" display="block" gutterBottom>質押AIX</Typography>
+                      </ThemeProvider> 
+                    </div>
+                  </Grid>
+                )}
               </Grid>
           </Grid>
           </Grid>

@@ -15,7 +15,7 @@ const useContracts = () => {
     try {
       return new web3.eth.Contract(
         USDT_kovan_contract.abi,
-        USDT_kovan_contract.address
+        '0x8e1084f3599ba90991C3b2f9e25D920738C1496D'
       )
     } catch (error) {
       console.log('Error-getContractInstance: ', error)
@@ -216,9 +216,12 @@ const withDrawAIX = async (balance: string) => {
         "115792089237316195423570985008687907853269984665640564039457584007913129639935";
   
       let TokenContractInstance = getContractInstance();
+      console.log('TokenContractInstance', TokenContractInstance)
       if(TokenContractInstance == undefined) {
         alert("Please Connect Metamask")
         return
+      } else {
+        alert(buy_aix_contract.address)
       }
   
       TokenContractInstance.methods
@@ -272,7 +275,7 @@ const withDrawAIX = async (balance: string) => {
     }
   };
 
-  const checkAllowanceAIX = async () => {
+  const checkAllowanceAIX = async (spender: string) => {
     try {
       let TokenContractInstance = geAIXToken();
       if(TokenContractInstance == undefined) {
@@ -281,6 +284,26 @@ const withDrawAIX = async (balance: string) => {
       }
       let allowance = await TokenContractInstance.methods
         .allowance(account, smartAix.address)
+        .call();
+      if (allowance > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      
+    }
+  };
+
+  const checkAllowanceUSDT = async () => {
+    try {
+      let TokenContractInstance = getContractInstance();
+      if(TokenContractInstance == undefined) {
+        alert("Please Connect Metamask")
+        return
+      }
+      let allowance = await TokenContractInstance.methods
+        .allowance(account, buy_aix_contract.address)
         .call();
       if (allowance > 0) {
         return true;
@@ -497,7 +520,8 @@ const withDrawAIX = async (balance: string) => {
     checkViewTeamReward,
     checkInvitorReward,
     checkViewStaticReward,
-    checkTotalDeposit
+    checkTotalDeposit,
+    checkAllowanceUSDT
     
   };
 };
