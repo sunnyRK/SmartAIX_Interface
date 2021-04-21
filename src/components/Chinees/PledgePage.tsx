@@ -232,20 +232,22 @@ const MainChinese: React.FunctionComponent = () => {
                     // <input disabled style={{width: "100%", height: '40px'}} onChange={handleInvitorAddress} placeholder="Invitor Address" value={userInfo[2]}></input>
                   }
                 </Grid>
-                <Grid item xs={12} style={{marginTop:"60px"}}>
-                  <div
-                    className="approve-token-button" style={{background:"linear-gradient(to right, #4F5799 0%,#687EC2 100%)",padding:"10px 0px",borderRadius:"30px"}}
-                    onClick={() => approveTokenAIX(smart_aix_contract.address)}
-                  >
-                    <ThemeProvider theme={theme}>
-                      <Typography variant="button" display="block" gutterBottom>批准使用AIX</Typography>
-                    </ThemeProvider> 
-                  </div>
-                </Grid>
+                
                 {checkDepositAIXAllowance ? 
                     ''
                     : 
                   (
+                  <Grid item xs={12} style={{marginTop:"60px"}}>
+                    <div
+                      className="approve-token-button" style={{background:"linear-gradient(to right, #4F5799 0%,#687EC2 100%)",padding:"10px 0px",borderRadius:"30px"}}
+                      onClick={() => approveTokenAIX(smart_aix_contract.address)}
+                    >
+                      <ThemeProvider theme={theme}>
+                        <Typography variant="button" display="block" gutterBottom>批准使用AIX</Typography>
+                      </ThemeProvider> 
+                    </div>
+                  </Grid>
+                )}
                   <Grid item xs={12}>
                     <div
                       className="approve-token-button" style={{backgroundColor:"white", color:"black", borderRadius:"30px",padding:"10px 0px",border:"1px solid var(--pastel-blue2)"}}
@@ -256,7 +258,6 @@ const MainChinese: React.FunctionComponent = () => {
                       </ThemeProvider> 
                     </div>
                   </Grid>
-                )}
               </Grid>
           </Grid>
           </Grid>

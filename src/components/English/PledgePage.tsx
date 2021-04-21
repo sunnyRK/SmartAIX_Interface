@@ -245,7 +245,8 @@ const MainChinese: React.FunctionComponent = () => {
                       <Typography variant="button" display="block" gutterBottom>Approve AIX</Typography>
                     </ThemeProvider> 
                   </div>
-                </Grid>)}
+                </Grid>
+                )}
                 <Grid item xs={12}>
                   <div
                     className="approve-token-button" style={{backgroundColor:"white", color:"black", borderRadius:"30px",padding:"10px 0px",border:"1px solid var(--pastel-blue2)"}}
