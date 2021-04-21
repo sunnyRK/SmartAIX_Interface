@@ -236,16 +236,17 @@ const MainChinese: React.FunctionComponent = () => {
                 {checkDepositAIXAllowance ? 
                     ''
                     : 
-                  (<Grid item xs={12} style={{marginTop:"60px"}}>
-                  <div
-                    className="approve-token-button" style={{background:"linear-gradient(to right, #4F5799 0%,#687EC2 100%)",padding:"10px 0px",borderRadius:"30px"}}
-                    onClick={() => approveTokenAIX(smart_aix_contract.address)}
-                  >
-                    <ThemeProvider theme={theme}>
-                      <Typography variant="button" display="block" gutterBottom>Approve AIX</Typography>
-                    </ThemeProvider> 
-                  </div>
-                </Grid>
+                  (
+                  <Grid item xs={12} style={{marginTop:"60px"}}>
+                    <div
+                      className="approve-token-button" style={{background:"linear-gradient(to right, #4F5799 0%,#687EC2 100%)",padding:"10px 0px",borderRadius:"30px"}}
+                      onClick={() => approveTokenAIX(smart_aix_contract.address)}
+                    >
+                      <ThemeProvider theme={theme}>
+                        <Typography variant="button" display="block" gutterBottom>Approve AIX</Typography>
+                      </ThemeProvider> 
+                    </div>
+                  </Grid>
                 )}
                 <Grid item xs={12}>
                   <div

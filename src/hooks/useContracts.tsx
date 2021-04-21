@@ -15,7 +15,7 @@ const useContracts = () => {
     try {
       return new web3.eth.Contract(
         USDT_kovan_contract.abi,
-        '0x8e1084f3599ba90991C3b2f9e25D920738C1496D'
+        USDT_kovan_contract.address
       )
     } catch (error) {
       console.log('Error-getContractInstance: ', error)
