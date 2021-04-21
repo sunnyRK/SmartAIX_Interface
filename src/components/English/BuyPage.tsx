@@ -237,7 +237,7 @@ const MainChinese: React.FunctionComponent = () => {
                     </div>
                   </Grid>
                 )}
-                 <Grid item xs={12} style={{marginTop:"60px"}}>
+                 {/* <Grid item xs={12} style={{marginTop:"60px"}}>
                   <TextField 
                     style={{width: "100%", height: '40px'}} 
                     id="outlined-search" 
@@ -246,10 +246,9 @@ const MainChinese: React.FunctionComponent = () => {
                     variant="outlined" 
                     onChange={handleSellAIXAmount}  
                   />
-                  {/* <input style={{width: "100%", height: '40px'}} onChange={handleBuyAIXAmount} placeholder="Add Buy AIX amount"></input> */}
                 </Grid>
-                
-                {checkSellAIXAllowance ? 
+                 */}
+                {/* {checkSellAIXAllowance ? 
                     ''
                     : 
                   (
@@ -275,7 +274,7 @@ const MainChinese: React.FunctionComponent = () => {
                       <Typography variant="button" display="block" gutterBottom>SELL AIX</Typography>
                     </ThemeProvider> 
                   </div>
-                </Grid>
+                </Grid> */}
               </Grid>
           </Grid>
         </Grid>
