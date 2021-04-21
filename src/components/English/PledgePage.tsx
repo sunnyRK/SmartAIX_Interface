@@ -239,7 +239,7 @@ const MainChinese: React.FunctionComponent = () => {
                   (
                   <Grid item xs={12} style={{marginTop:"60px"}}>
                     <div
-                      className="approve-token-button" style={{background:"linear-gradient(to right, #4F5799 0%,#687EC2 100%)",padding:"10px 0px",borderRadius:"30px"}}
+                      className="approve-token-button" style={{backgroundColor:"white",color:"black",padding:"10px 0px",borderRadius:"30px",border:"1px solid var(--pastel-blue2)"}}
                       onClick={() => approveTokenAIX(smart_aix_contract.address)}
                     >
                       <ThemeProvider theme={theme}>
@@ -250,7 +250,7 @@ const MainChinese: React.FunctionComponent = () => {
                 )}
                 <Grid item xs={12}>
                   <div
-                    className="approve-token-button" style={{backgroundColor:"white", color:"black", borderRadius:"30px",padding:"10px 0px",border:"1px solid var(--pastel-blue2)"}}
+                    className="approve-token-button" style={{background:"linear-gradient(to right, #4F5799 0%,#687EC2 100%)", color:"white", borderRadius:"30px",padding:"10px 0px",border:"1px solid var(--pastel-blue2)"}}
                     onClick={() => depositAIX(aixDepositAmount, invitorAddress)}
                   >
                     <ThemeProvider theme={theme}>
