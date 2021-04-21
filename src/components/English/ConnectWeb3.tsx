@@ -151,13 +151,13 @@ const ConnectWeb3: React.FunctionComponent = () => {
       <div>
         <CustomButton
           color="blue"
-          title={"Connect Metamask"}
+          title={"Connect to Wallet"}
           description="Enable web3 wallet to perform Tx"
           icon="grid"
           onClick={connected ? resetApp : onLoginMetamask}
         />
       </div>
-      <div style = {{marginTop: "30px"}}>      
+      {/* <div style = {{marginTop: "30px"}}>      
         <CustomButton
           color="blue"
           title={"Connect WalletConnect"}
@@ -165,7 +165,7 @@ const ConnectWeb3: React.FunctionComponent = () => {
           icon="grid"
           onClick={connected ? resetApp : onLoginWalletConnect}
         />
-      </div>
+      </div> */}
     </div>
     
     
